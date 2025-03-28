@@ -22,8 +22,8 @@ export default function FloatingCube({
   const meshRef = useRef<Mesh>(null!);
   const { theme } = useTheme();
   
-  // Different colors for light/dark mode
-  const lightModeColor = "#1A1B2F";
+  // Different colors for light/dark mode - improved for light mode visibility
+  const lightModeColor = "#4F46E5";
   const darkModeColor = color;
   const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 

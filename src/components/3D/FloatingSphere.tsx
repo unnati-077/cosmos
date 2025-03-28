@@ -22,8 +22,8 @@ export default function FloatingSphere({
   const meshRef = useRef<Mesh>(null!);
   const { theme } = useTheme();
   
-  // Different colors for light/dark mode
-  const lightModeColor = "#4F46E5";
+  // Different colors for light/dark mode - improved for light mode visibility
+  const lightModeColor = "#38BDF8";
   const darkModeColor = color;
   const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 

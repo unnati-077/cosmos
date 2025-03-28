@@ -183,11 +183,13 @@ export default function CursorEffects() {
         className="fixed w-2 h-2 bg-primary rounded-full pointer-events-none z-[998] transform -translate-x-1/2 -translate-y-1/2"
         style={styles.cursorTrail}
       />
-      <style jsx global>{`
-        * {
-          cursor: none;
-        }
-      `}</style>
+      <style>
+        {`
+          * {
+            cursor: none;
+          }
+        `}
+      </style>
     </>
   );
 }

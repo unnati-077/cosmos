@@ -24,8 +24,8 @@ export default function FloatingTorus({
   const meshRef = useRef<Mesh>(null!);
   const { theme } = useTheme();
   
-  // Different colors for light/dark mode
-  const lightModeColor = "#7E69AB";
+  // Different colors for light/dark mode - improved for light mode visibility
+  const lightModeColor = "#EC4899";
   const darkModeColor = color;
   const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 
