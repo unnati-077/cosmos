@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import { useTheme } from '@/components/ThemeProvider';
 
 type FloatingSphereProps = {
   position?: [number, number, number];
@@ -19,6 +20,12 @@ export default function FloatingSphere({
   speed = 1
 }: FloatingSphereProps) {
   const meshRef = useRef<Mesh>(null!);
+  const { theme } = useTheme();
+  
+  // Different colors for light/dark mode
+  const lightModeColor = "#4F46E5";
+  const darkModeColor = color;
+  const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -34,7 +41,7 @@ export default function FloatingSphere({
   return (
     <mesh ref={meshRef} position={position}>
       <sphereGeometry args={[radius, 32, 32]} />
-      <meshStandardMaterial color={color} wireframe={wireframe} />
+      <meshStandardMaterial color={activeColor} wireframe={wireframe} />
     </mesh>
   );
 }

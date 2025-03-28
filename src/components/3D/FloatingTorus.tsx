@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import { useTheme } from '@/components/ThemeProvider';
 
 type FloatingTorusProps = {
   position?: [number, number, number];
@@ -21,6 +22,12 @@ export default function FloatingTorus({
   speed = 1
 }: FloatingTorusProps) {
   const meshRef = useRef<Mesh>(null!);
+  const { theme } = useTheme();
+  
+  // Different colors for light/dark mode
+  const lightModeColor = "#7E69AB";
+  const darkModeColor = color;
+  const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -37,7 +44,7 @@ export default function FloatingTorus({
   return (
     <mesh ref={meshRef} position={position}>
       <torusGeometry args={[radius, tubeRadius, 16, 100]} />
-      <meshStandardMaterial color={color} wireframe={wireframe} />
+      <meshStandardMaterial color={activeColor} wireframe={wireframe} />
     </mesh>
   );
 }

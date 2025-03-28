@@ -7,9 +7,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SpaceScene from '@/components/3D/SpaceScene';
+import { LoginDialog } from '@/components/LoginDialog';
+import CursorEffects from '@/components/CursorEffects';
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <CursorEffects />
       <Navbar />
       
       {/* Hero Section */}
@@ -66,10 +70,10 @@ const Index = () => {
                 }`}
               >
                 <Button 
-                  onClick={() => navigate('/features')}
+                  onClick={() => setLoginOpen(true)}
                   className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 text-white px-8 py-6"
                 >
-                  Explore Features <ArrowRight className="ml-2 h-5 w-5" />
+                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
                   variant="outline" 
@@ -165,6 +169,9 @@ const Index = () => {
       
       <FooterSection />
       <BackToTop />
+      
+      {/* Login Dialog */}
+      <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
     </div>
   );
 };

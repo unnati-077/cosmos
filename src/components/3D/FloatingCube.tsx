@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import { useTheme } from '@/components/ThemeProvider';
 
 type FloatingCubeProps = {
   position?: [number, number, number];
@@ -19,6 +20,12 @@ export default function FloatingCube({
   speed = 1
 }: FloatingCubeProps) {
   const meshRef = useRef<Mesh>(null!);
+  const { theme } = useTheme();
+  
+  // Different colors for light/dark mode
+  const lightModeColor = "#1A1B2F";
+  const darkModeColor = color;
+  const activeColor = theme === "light" ? lightModeColor : darkModeColor;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -33,7 +40,7 @@ export default function FloatingCube({
   return (
     <mesh ref={meshRef} position={position}>
       <boxGeometry args={[size, size, size]} />
-      <meshStandardMaterial color={color} wireframe={wireframe} />
+      <meshStandardMaterial color={activeColor} wireframe={wireframe} />
     </mesh>
   );
 }

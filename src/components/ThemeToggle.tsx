@@ -11,7 +11,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="rounded-full glassmorphism p-2"
+      className="rounded-full glassmorphism p-2 transition-all duration-300 hover:scale-110"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (
@@ -19,6 +19,7 @@ export function ThemeToggle() {
       ) : (
         <Sun className="h-5 w-5 text-foreground transition-all" />
       )}
+      <span className="sr-only">Toggle theme</span>
     </Button>
   );
 }
