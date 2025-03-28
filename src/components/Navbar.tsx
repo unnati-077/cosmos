@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { LoginDialog } from '@/components/LoginDialog';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
 
@@ -67,7 +69,10 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300">
+            <Button 
+              onClick={() => setLoginOpen(true)}
+              className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300"
+            >
               Get Started
             </Button>
           </div>
@@ -88,26 +93,38 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isMobile && isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 bg-background/95 backdrop-blur-md rounded-lg p-4 border border-border/10">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-base font-medium transition-all duration-300 ease-in-out 
-                    ${location.pathname === link.path ? 'text-primary' : 'text-foreground/80 hover:text-foreground'}
+                  className={`text-base font-medium transition-all duration-300 ease-in-out py-2 px-3 rounded-md
+                    ${location.pathname === link.path 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-foreground/80 hover:text-foreground hover:bg-accent/10'
+                    }
                   `}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 mt-2">
+              <Button 
+                onClick={() => {
+                  setLoginOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 mt-2"
+              >
                 Get Started
               </Button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Login Dialog */}
+      <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
     </header>
   );
 };
